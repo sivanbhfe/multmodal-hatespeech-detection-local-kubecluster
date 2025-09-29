@@ -2,6 +2,8 @@ FROM python:3.8-bullseye
 
 # Install system dependencies for Tesseract
 RUN apt-get update && apt-get install -y \
+    build-essential \
+    libgl1 \
     tesseract-ocr \
     libtesseract-dev \
     && rm -rf /var/lib/apt/lists/*
