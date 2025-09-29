@@ -16,7 +16,7 @@ COPY . /code
 #RUN chmod +x /code
 RUN pip install --no-cache-dir --upgrade -r code/requirements.txt
 
-EXPOSE 8005
+EXPOSE 8000
 
 WORKDIR /code
 
