@@ -13,23 +13,7 @@ uvicorn==0.23.2
 gunicorn==21.2.0
 Pillow==11.3.0
 
-# Caption extraction and translation
-pytesseract
-open-tamil
-symspellpy
-indic-transliteration
-chardet
-PyPDF2
-pdf2image
-cv2
 
-# Text hatespeech detection
-tensorflow
-sentencepiece
-transformers
-tf-keras
-torch
-datasets
 
 # Monitoring
 prometheus-fastapi-instrumentator==6.1.0

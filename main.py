@@ -14,7 +14,6 @@ sys.path.append(str(PACKAGE_ROOT))
 # from prediction_model.config import config
 from multimodel_hatespeech_detection.extract_caption.extractcaption import extract_caption
 from multimodel_hatespeech_detection.proper_tamil_translation import tamil_normalizer
-from multimodel_hatespeech_detection.image_preprocessing import caption_removal
 
 # classification_pipeline = load_pipeline(config.MODEL_NAME)
 
@@ -40,11 +39,5 @@ def extracted_caption(image_path: image_path_details):
 
     return ("Extracted caption:",caption_text)
 
-@app.post('/removecaption')
-def remove_caption(image_path: image_path_details):
-    imagepath =image_path.model_dump()
-    caption_removal.remove_text_ocr(imagepath["image_path_details"], imagepath["output_path_details"])
-    return ("Status:","Caption successfully removed")
-
 if __name__ == '__main__':
-    uvicorn.run("main:app", host="0.0.0.0",port=8005,reload=False)
+    uvicorn.run("main:app", host="localhost",port=8005,reload=False)

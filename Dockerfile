@@ -1,8 +1,10 @@
 FROM python:3.8-bullseye
-#RUN apt-get update && apt-get install -y \
- #   build-essential \
-  #  libpq-dev \
-   # && rm -rf /var/lib/apt/lists/*
+
+# Install system dependencies for Tesseract
+RUN apt-get update && apt-get install -y \
+    tesseract-ocr \
+    libtesseract-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 #RUN pip install --upgrade pip
 #copy to code directory
@@ -19,6 +21,5 @@ WORKDIR /code
 ENV PYTHONPATH "${PYTHONPATH}:/code"
 
 CMD pip install -e .
-#CMD ["python","prediction_model/training_pipeline.py"]
 WORKDIR /code
 CMD ["python","main.py"]

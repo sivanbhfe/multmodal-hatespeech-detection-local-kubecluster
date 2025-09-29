@@ -1,12 +1,22 @@
 from indic_transliteration import sanscript
 from indic_transliteration.sanscript import transliterate
+import sys
+import os
+from pathlib import Path
 
 from symspellpy import SymSpell, Verbosity
 # initialize once
 sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
-tamil_dict="D:\\AI_Doctorate\\HateSpeechModel_Draft\\MultimodelHateSpeechDetection_related\\tamil\\tamil_words.txt"
-empty_tamil_dict="D:\\AI_Doctorate\HateSpeechModel_Draft\\MultimodelHateSpeechDetection_related\\corpus_source\\symspell_dictionary.txt"
-sym_spell.load_dictionary(empty_tamil_dict, term_index=0, count_index=1)
+
+
+PACKAGE_ROOT = Path(os.path.abspath(os.path.dirname(__file__))).parent.parent
+sys.path.append(str(PACKAGE_ROOT))
+
+
+# tamil_dict="D:\\AI_Doctorate\\HateSpeechModel_Draft\\MultimodelHateSpeechDetection_related\\tamil\\tamil_words.txt"
+empty_tamil_dict= PACKAGE_ROOT / "multimodel_hatespeech_detection" / "symspell_dictionary" / "symspell_dictionary.txt"
+with open(empty_tamil_dict, "r", encoding="utf-8") as f:
+    sym_spell.load_dictionary(f, term_index=0, count_index=1)
 
 def transliterate_to_tamil(text: str) -> str:
     try:
