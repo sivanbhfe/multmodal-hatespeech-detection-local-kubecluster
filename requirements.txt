@@ -7,3 +7,4 @@ uvicorn==0.23.2
 Pillow==11.3.0
 pytesseract
 indic_transliteration
+symspellpy
