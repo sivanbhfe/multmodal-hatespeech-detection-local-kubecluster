@@ -16,9 +16,7 @@ from multimodel_hatespeech_detection.extract_caption.extractcaption import extra
 from multimodel_hatespeech_detection.proper_tamil_translation import tamil_normalizer
 
 # classification_pipeline = load_pipeline(config.MODEL_NAME)
-
 app = FastAPI()
-
 #Perform parsing
 class image_path_details(BaseModel):
     image_path_details: str
