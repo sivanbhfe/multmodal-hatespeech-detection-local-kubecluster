@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: fastapi
-        image: sivansbhfe/fastapi-app:latest-b7e2a0e
+        image: sivansbhfe/fastapi-app:latest-23a776d
         ports:
         - containerPort: 8000
