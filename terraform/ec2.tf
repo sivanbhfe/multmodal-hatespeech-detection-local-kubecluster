@@ -4,7 +4,7 @@ resource "aws_instance" "k3s" {
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.k3s_sg.id]
 
-  user_data = file("${path.module}/bootstrap.sh")
+  user_data = file("${path.module}/bootstrap/bootstrap.sh")
 
   tags = {
     Name = "k3s-argocd"
