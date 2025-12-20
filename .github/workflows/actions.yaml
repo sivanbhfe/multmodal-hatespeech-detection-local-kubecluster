@@ -6,6 +6,8 @@ on:
       - master
     paths:
       - .github/workflows/actions.yaml
+  workflow_dispatch:
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
