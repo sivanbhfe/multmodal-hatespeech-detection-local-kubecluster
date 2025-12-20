@@ -1,7 +1,8 @@
 resource "aws_security_group" "k3s_sg" {
-  name = "k3s-sg"
+  name = "k3s-argocd-sg"
 
   ingress {
+    description = "SSH"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -9,6 +10,7 @@ resource "aws_security_group" "k3s_sg" {
   }
 
   ingress {
+    description = "HTTP / NodePort"
     from_port   = 80
     to_port     = 32767
     protocol    = "tcp"
