@@ -5,7 +5,6 @@ on:
     branches:
       - master
     paths:
-      - multimodel_hatespeech_detection/**
       - .github/workflows/actions.yaml
 jobs:
   build-and-deploy:
