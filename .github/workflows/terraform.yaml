@@ -36,11 +36,6 @@ jobs:
         working-directory: terraform
         run: terraform init
 
-      - name: Terraform Plan
-        working-directory: terraform
-        run: terraform plan \
-          -var="private_key_content=${{ secrets.EC2_PEM }}" \
-
       - name: Terraform Apply
         working-directory: terraform
         run: terraform apply -auto-approve \
