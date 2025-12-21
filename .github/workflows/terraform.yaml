@@ -36,14 +36,14 @@ jobs:
         working-directory: terraform
         run: terraform init
 
-      - name: Write terraform tfvars
+      - name: Encode PEM
         run: |
-          cat <<EOF > terraform.tfvars
-          private_key_content = <<EOP
-          ${{ secrets.EC2_PEM }}
-          EOP
-          key_name = "kubeinaws"
-          EOF
+          echo "${{ secrets.EC2_PEM }}" | base64 > kubeinaws.pem.b64
+
+      - name: Terraform Plan
+        working-directory: terraform
+        run: terraform plan
+
       - name: Terraform Apply
         working-directory: terraform
-        run: terraform apply -auto-approve -var-file=terraform.tfvars
+        run: terraform apply -auto-approve -var "private_key_content=$(cat kubeinaws.pem.b64)"
