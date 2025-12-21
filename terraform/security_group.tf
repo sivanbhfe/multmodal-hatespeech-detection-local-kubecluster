@@ -1,5 +1,5 @@
 resource "aws_security_group" "k3s_sg" {
-  name = "k3s-argocd-sg"
+  name = "k3s-argocd-sg-1"
 
   ingress {
     description = "SSH"
