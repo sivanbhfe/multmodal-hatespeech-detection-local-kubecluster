@@ -5,6 +5,7 @@ on:
     branches:
       - master
     paths:
+      - multimodel_hatespeech_detection/**
       - .github/workflows/actions.yaml
   workflow_dispatch:
 

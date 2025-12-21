@@ -4,7 +4,6 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 def extract_caption(image_path: str, lang: str = "eng+tam") -> str:
     """
     Extracts caption text from an image using OCR.
-
     Args:
         image_path (str): Path to the image file.
         lang (str): Language code for OCR (default: "eng").
