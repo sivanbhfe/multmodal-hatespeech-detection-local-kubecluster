@@ -38,12 +38,12 @@ jobs:
 
       - name: Encode PEM
         run: |
-          echo "${{ secrets.EC2_PEM }}" | base64 > kubeinaws.pem.b64
+          echo "${{ secrets.EC2_PEM }}" | base64 --decode > kubeinaws.pem
 
       - name: Terraform Plan
         working-directory: terraform
-        run: terraform plan -var "private_key_content=$(cat kubeinaws.pem.b64)"
+        run: terraform plan -var "private_key_content=$(cat kubeinaws.pem)"
 
       - name: Terraform Apply
         working-directory: terraform
-        run: terraform apply -auto-approve -var "private_key_content=$(cat kubeinaws.pem.b64)"
+        run: terraform apply -auto-approve -var "private_key_content=$(cat kubeinaws.pem)"
