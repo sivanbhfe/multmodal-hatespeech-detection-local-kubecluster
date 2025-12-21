@@ -43,7 +43,7 @@ resource "aws_instance" "k3s" {
       "chmod +x /home/ubuntu/k8s || true",
       "chmod +x /home/ubuntu/bootstrap || true",
       # Run bootstrap
-      "sudo /home/ubuntu/bootstrap"
+      "sudo /home/ubuntu/bootstrap/bootstrap.sh"
     ]
   }
 }
