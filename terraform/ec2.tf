@@ -34,7 +34,7 @@ resource "aws_instance" "k3s" {
       "sudo chown -R ubuntu:ubuntu /home/ubuntu/bootstrap",
       # Ensure scripts are executable
       "chmod +x /home/ubuntu/k8s || true",
-      "chmod +x /home/ubuntu/bootstrap || true",
+      "chmod +x /home/ubuntu/bootstrap/bootstrap.sh || true",
       # Run bootstrap
       "sudo /home/ubuntu/bootstrap/bootstrap.sh"
     ]
