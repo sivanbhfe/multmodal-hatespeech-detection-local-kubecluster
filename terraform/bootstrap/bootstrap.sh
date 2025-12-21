@@ -19,6 +19,12 @@ until kubectl get nodes >/dev/null 2>&1; do
   sleep 5
 done
 
+echo "Waiting for CoreDNS..."
+kubectl rollout status deployment/coredns -n kube-system --timeout=300s
+
+echo "Waiting for local-path storage..."
+kubectl rollout status deployment/local-path-provisioner -n kube-system --timeout=300s
+
 echo "Installing Helm..."
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
@@ -28,10 +34,12 @@ kubectl apply -n argocd \
   -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 echo "Waiting for Argo CD..."
-kubectl rollout status deployment/argocd-server -n argocd --timeout=300s
+kubectl rollout status deployment/argocd-server -n argocd
 
 echo "Exposing Argo CD via NodePort..."
 kubectl apply -f /home/ubuntu/k8s/argocd/argocd-server-nodeport.yaml
+
+echo "Argo CD installation triggered successfully"
 
 #echo "Exposing Argo CD via NodePort..."
 #kubectl patch svc argocd-server -n argocd \
