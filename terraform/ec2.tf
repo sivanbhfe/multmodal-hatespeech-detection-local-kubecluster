@@ -3,7 +3,7 @@ resource "aws_instance" "k3s" {
   instance_type = "t3.micro"
   key_name      = var.key_name
   vpc_security_group_ids = [aws_security_group.k3s_sg.id]
-  user_data = file("${path.module}/bootstrap/bootstrap.sh")
+  # user_data = file("${path.module}/bootstrap/bootstrap.sh")
 
   tags = {
     Name = "k3s-argocd"
@@ -21,13 +21,23 @@ resource "aws_instance" "k3s" {
     destination = "/home/ubuntu/k8s"       # change from /home/ec2-user/k8s
   }
 
+    provisioner "file" {
+    source      = "${path.module}./bootstrap"
+    destination = "/home/ubuntu/bootstrap"       # change from /home/ec2-user/k8s
+  }
+
   # Run bootstrap.sh to install k3s + Argo CD
   provisioner "remote-exec" {
     inline = [
       # Ensure scripts are executable
       "chmod +x /home/ubuntu/k8s || true",
+      "chmod +x /home/ubuntu/bootstrap || true",
       # Fix ownership
       "sudo chown -R ubuntu:ubuntu /home/ubuntu/k8s",
+      "sudo chown -R ubuntu:ubuntu /home/ubuntu/bootstrap",
+
+      # Run bootstrap
+      "/home/ubuntu/bootstrap"
     ]
   }
 }
