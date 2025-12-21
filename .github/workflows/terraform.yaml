@@ -38,7 +38,8 @@ jobs:
 
       - name: Terraform Plan
         working-directory: terraform
-        run: terraform plan
+        run: terraform plan \
+          -var="private_key_content=${{ secrets.EC2_PEM }}" \
 
       - name: Terraform Apply
         working-directory: terraform
