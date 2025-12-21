@@ -32,7 +32,7 @@ resource "aws_instance" "k3s" {
   }
 
     provisioner "file" {
-    source      = "${path.module}./bootstrap"
+    source      = "${path.module}/bootstrap"
     destination = "/home/ubuntu/bootstrap"       # change from /home/ec2-user/k8s
   }
 
