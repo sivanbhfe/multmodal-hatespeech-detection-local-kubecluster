@@ -38,7 +38,7 @@ jobs:
 
       - name: Write terraform tfvars
         run: |
-          cat <<EOF > terraform/terraform.tfvars
+          cat <<EOF > terraform.tfvars
           private_key_content = <<EOP
           ${{ secrets.EC2_PEM }}
           EOP
@@ -46,4 +46,4 @@ jobs:
           EOF
       - name: Terraform Apply
         working-directory: terraform
-        run: terraform apply -auto-approve -var-file=terraform/terraform.tfvars
+        run: terraform apply -auto-approve -var-file=terraform.tfvars
