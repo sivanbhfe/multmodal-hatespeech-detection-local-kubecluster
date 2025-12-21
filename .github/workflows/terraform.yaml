@@ -42,7 +42,7 @@ jobs:
 
       - name: Terraform Plan
         working-directory: terraform
-        run: terraform plan
+        run: terraform plan -var "private_key_content=$(cat kubeinaws.pem.b64)"
 
       - name: Terraform Apply
         working-directory: terraform
