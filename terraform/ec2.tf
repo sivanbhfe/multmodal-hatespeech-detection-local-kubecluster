@@ -16,16 +16,6 @@ resource "aws_instance" "k3s" {
     host = self.public_ip
   }
 
-  provisioner "remote-exec" {
-    inline = [
-     "mkdir -p /home/ubuntu/k8s",
-     "mkdir -p /home/ubuntu/bootstrap",
-      # Fix ownership
-      "sudo chown -R ubuntu:ubuntu /home/ubuntu/k8s",
-      "sudo chown -R ubuntu:ubuntu /home/ubuntu/bootstrap",
-    ]
-  }
-
   provisioner "file" {
     source      = "${path.module}/../k8s"
     destination = "/home/ubuntu/k8s"       # change from /home/ec2-user/k8s
@@ -39,6 +29,9 @@ resource "aws_instance" "k3s" {
   # Run bootstrap.sh to install k3s + Argo CD
   provisioner "remote-exec" {
     inline = [
+      # Fix ownership
+      "sudo chown -R ubuntu:ubuntu /home/ubuntu/k8s",
+      "sudo chown -R ubuntu:ubuntu /home/ubuntu/bootstrap",
       # Ensure scripts are executable
       "chmod +x /home/ubuntu/k8s || true",
       "chmod +x /home/ubuntu/bootstrap || true",
