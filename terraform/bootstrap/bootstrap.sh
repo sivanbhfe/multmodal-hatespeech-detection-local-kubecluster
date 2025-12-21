@@ -28,8 +28,6 @@ kubectl apply -f /home/ubuntu/k8s/argocd/argocd-server-nodeport.yaml
 echo "Waiting for Argo CD..."
 kubectl rollout status deployment/argocd-server -n argocd --timeout=300s
 
-
-
-echo "Exposing Argo CD via NodePort..."
-kubectl patch svc argocd-server -n argocd \
-  -p '{"spec": {"type": "NodePort"}}'
+#echo "Exposing Argo CD via NodePort..."
+#kubectl patch svc argocd-server -n argocd \
+#  -p '{"spec": {"type": "NodePort"}}'

@@ -3,7 +3,8 @@ variable "key_name" {
   type        = string
 }
 
-variable "private_key_path" {
-  description = "Location of pem file for Terraform to access"
+variable "private_key_content" {
+  description = "Passing pem file as content for Terraform to access"
   type        = string
+  sensitive   = true
 }

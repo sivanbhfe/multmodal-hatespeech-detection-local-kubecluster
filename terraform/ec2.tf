@@ -12,7 +12,7 @@ resource "aws_instance" "k3s" {
   connection {
     type = "ssh"
     user = "ubuntu"                  # Ubuntu AMI default user
-    private_key = file(var.private_key_path)
+    private_key = var.private_key_content
     host = self.public_ip
   }
 
