@@ -15,6 +15,9 @@ sudo swapon /swapfile
 export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 chmod 644 /etc/rancher/k3s/k3s.yaml
 sudo chown ubuntu:ubuntu /etc/rancher/k3s/k3s.yaml
+until kubectl get nodes >/dev/null 2>&1; do
+  sleep 5
+done
 
 echo "Installing Helm..."
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
@@ -23,10 +26,12 @@ echo "Installing Argo CD..."
 kubectl create namespace argocd || true
 kubectl apply -n argocd \
   -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl apply -f /home/ubuntu/k8s/argocd/argocd-server-nodeport.yaml
 
 echo "Waiting for Argo CD..."
 kubectl rollout status deployment/argocd-server -n argocd --timeout=300s
+
+echo "Exposing Argo CD via NodePort..."
+kubectl apply -f /home/ubuntu/k8s/argocd/argocd-server-nodeport.yaml
 
 #echo "Exposing Argo CD via NodePort..."
 #kubectl patch svc argocd-server -n argocd \
