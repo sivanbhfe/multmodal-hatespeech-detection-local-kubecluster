@@ -23,9 +23,12 @@ echo "Installing Argo CD..."
 kubectl create namespace argocd || true
 kubectl apply -n argocd \
   -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -f /home/ubuntu/k8s/argocd/argocd-server-nodeport.yaml
 
 echo "Waiting for Argo CD..."
 kubectl rollout status deployment/argocd-server -n argocd --timeout=300s
+
+
 
 echo "Exposing Argo CD via NodePort..."
 kubectl patch svc argocd-server -n argocd \

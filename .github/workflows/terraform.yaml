@@ -27,6 +27,12 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.ACCOUNT_ID }}:role/${{ secrets.GITACT_AWS_ROLE }}
           aws-region: ap-south-1
 
+      # Write PEM secret to file
+      - name: Set up SSH key
+        run: |
+          echo "${{ secrets.EC2_PEM }}" > kubeinaws.pem
+          chmod 400 kubeinaws.pem
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
