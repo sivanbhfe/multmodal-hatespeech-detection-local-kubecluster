@@ -38,7 +38,6 @@ jobs:
 
       - name: Encode PEM
         run: |
-#          echo "${{ secrets.EC2_PEM }}" > kubeinaws.pem
           printf "%s" "${{ secrets.EC2_PEM }}" > kubeinaws.pem
           chmod 600 kubeinaws.pem
 
