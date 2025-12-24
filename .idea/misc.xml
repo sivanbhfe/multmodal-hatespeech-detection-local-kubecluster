@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.10 (MultimodelHateSpeechDetection_localkubecluster)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (MultimodelHateSpeechDetection_localkubecluster)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (MultimodelHateSpeechDetection)" project-jdk-type="Python SDK" />
 </project>

@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - multimodel_hatespeech_detection/**
-      - .github/workflows/actions.yaml
+      - .github/workflows/build-docker-image.yaml
   workflow_dispatch:
 
 jobs:
@@ -32,14 +32,10 @@ jobs:
         docker build -t $IMAGE_NAME:$IMAGE_TAG .
         docker push $IMAGE_NAME:$IMAGE_TAG
 
-    - name: Update Kubernetes manifests
+    - name: Update Kubernetes manifests in terraform repo
       run: |
-        sed -i "s|image: .*$|image: ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest-${GITHUB_SHA::7}|" k8s/deployment.yaml
-
-    - name: Commit and Push changes
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add k8s/deployment.yaml
-        git commit -m "Update image tag to ${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest-${GITHUB_SHA::7}"
+        git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com:sivanbhfe/multimodel-hate-speech-detection-terraform.git
+        cd multimodel-hate-speech-detection-terraform
+        sed -i "s/newTag:.*/newTag: ${GITHUB_SHA::7}/" apps/ml-api/overlays/prod/kustomization.yaml
+        git commit -am "Deploy ml-api ${GITHUB_SHA::7}"
         git push
