@@ -9,6 +9,9 @@ on:
       - .github/workflows/build-docker-image.yaml
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -34,7 +37,7 @@ jobs:
 
     - name: Update Kubernetes manifests in terraform repo
       run: |
-        git clone git@github.com:sivanbhfe/multimodel-hate-speech-detection-terraform.git
+        git clone https://github.com/sivanbhfe/multimodel-hate-speech-detection
         cd multimodel-hate-speech-detection-terraform
         sed -i "s/newTag:.*/newTag: ${GITHUB_SHA::7}/" apps/ml-api/overlays/prod/kustomization.yaml
         git commit -am "Deploy ml-api ${GITHUB_SHA::7}"
