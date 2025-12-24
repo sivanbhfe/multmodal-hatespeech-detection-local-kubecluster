@@ -34,7 +34,7 @@ jobs:
 
     - name: Update Kubernetes manifests in terraform repo
       run: |
-        git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com:sivanbhfe/multimodel-hate-speech-detection-terraform.git
+        git clone https://x-access-token:${{ secrets.PAT_TOKEN }}git@github.com:sivanbhfe/multimodel-hate-speech-detection-terraform.git
         cd multimodel-hate-speech-detection-terraform
         sed -i "s/newTag:.*/newTag: ${GITHUB_SHA::7}/" apps/ml-api/overlays/prod/kustomization.yaml
         git commit -am "Deploy ml-api ${GITHUB_SHA::7}"
