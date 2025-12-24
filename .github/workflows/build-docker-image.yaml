@@ -39,7 +39,10 @@ jobs:
       run: |
         git clone https://github.com/sivanbhfe/multimodel-hate-speech-detection-terraform
         cd multimodel-hate-speech-detection-terraform
-        ls apps/
-        sed -i "s/newTag:.*/newTag: ${GITHUB_SHA::7}/" apps/multimodal-hatespeech/overlays/prod/kustomization.yaml
+        cd apps
+        cd multimodal-hatespeech
+        cd overlays
+        cd prod
+        sed -i "s/newTag:.*/newTag: ${GITHUB_SHA::7}/" kustomization.yaml
         git commit -am "Deploy ml-api ${GITHUB_SHA::7}"
         git push
