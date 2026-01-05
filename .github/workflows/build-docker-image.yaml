@@ -41,6 +41,6 @@ jobs:
         cd multimodel-hate-speech-detection-terraform
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        sed -i "s/newTag:.*/newTag: ${GITHUB_SHA::7}/" apps/multimodal-hatespeech/overlays/prod/kustomization.yaml
-        git commit -am "Deploy ml-api ${GITHUB_SHA::7}"
+        IMAGE_TAG="${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest-${GITHUB_SHA::7}" apps/multimodal-hatespeech/overlays/prod/patch-image.yaml
+        git commit -am "Deploy fastapi-app ${GITHUB_SHA::7}"
         git push
