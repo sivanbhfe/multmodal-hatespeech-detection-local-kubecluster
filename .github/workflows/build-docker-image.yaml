@@ -40,6 +40,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: sivanbhfe/multimodel-hate-speech-detection-terraform.git
+        ref: master
         token: ${{ secrets.FINGRAINED_GIT_TOKEN }}
         path: gitops
 
