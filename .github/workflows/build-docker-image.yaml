@@ -35,12 +35,24 @@ jobs:
         docker build -t $IMAGE_NAME:$IMAGE_TAG .
         docker push $IMAGE_NAME:$IMAGE_TAG
 
-    - name: Update Kubernetes manifests in terraform repo
+
+    - name: Checkout GitOps repo
+      uses: actions/checkout@v4
+      with:
+        repository: sivanbhfe/multimodel-hate-speech-detection-terraform.git
+        token: ${{ secrets.PAT_TOKEN }}
+        path: gitops
+
+    - name: Update image tag
       run: |
-        git clone https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/sivanbhfe/multimodel-hate-speech-detection-terraform.git
-        cd multimodel-hate-speech-detection-terraform
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        IMAGE_TAG="${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest-${GITHUB_SHA::7}" apps/multimodal-hatespeech/overlays/prod/patch-image.yaml
+        cd gitops
+        sed -i 's/image:.*/image: "$${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest-${GITHUB_SHA::7}"/' \
+          apps/multimodal-hatespeech/overlays/prod/patch-image.yaml
+
+    - name: Commit and push
+      run: |
+        cd gitops
+        git config user.name "github-actions"
+        git config user.email "github-actions@github.com"
         git commit -am "Deploy fastapi-app ${GITHUB_SHA::7}"
         git push
