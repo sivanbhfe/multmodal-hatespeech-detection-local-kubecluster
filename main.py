@@ -6,7 +6,7 @@ import sys
 import os
 from pathlib import Path
 
-# # Adding the below path to avoid module not found error
+# Adding the below path to avoid module not found error
 PACKAGE_ROOT = Path(os.path.abspath(os.path.dirname(__file__))).parent
 sys.path.append(str(PACKAGE_ROOT))
 
