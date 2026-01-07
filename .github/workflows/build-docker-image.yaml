@@ -47,7 +47,7 @@ jobs:
     - name: Update image tag
       run: |
         cd gitops
-        sed -i 's/image:.*/image: "$${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest-${GITHUB_SHA::7}"/' \
+        sed -i "s|image:.*|image: "$${{ secrets.DOCKER_USERNAME }}/fastapi-app:latest-${GITHUB_SHA::7}"|" \
           apps/multimodal-hatespeech/overlays/prod/patch-image.yaml
 
     - name: Commit and push
